@@ -25,7 +25,7 @@ public class Bord implements BordInterface
     {
         Random rand = new Random();
         int randInt = (rand.nextInt(3) + 1);
-        return randInt == 1 ? new NormalWeather(this) : randInt == 2 ? new ColdWeather(this) : new WarmWeather(this);
+        return randInt == 1 ? new NormalWeather(this, null) : randInt == 2 ? new ColdWeather(this, null) : new WarmWeather(this, null);
     }
 
     @Override
@@ -36,5 +36,17 @@ public class Bord implements BordInterface
 
     public void nextState()
     {
+        this.weather.nextState();
+    }
+
+    public void previousState()
+    {
+        this.weather.previousState();
+    }
+
+
+    public void changeState(Weather weather)
+    {
+        this.weather = weather;
     }
 }

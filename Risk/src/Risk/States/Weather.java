@@ -1,23 +1,46 @@
 package Risk.States;
 import Risk.Bord;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public abstract class Weather
 {
     private Bord bord;
+    private String name;
+    private Weather previousWeather;
 
-    public Weather(Bord bord)
+    public Weather(Bord bord, String name, Weather previousWeather)
     {
         this.bord = bord;
+        this.name = name;
+        this.previousWeather = previousWeather;
     }
 
-
-    private void nextState()
+    public void nextState()
     {
+        Weather randomWeather = getRandWeather(this);
 
+        if(this.name.contentEquals(this.getClass().getName()))
+            nextState();
+
+        this.bord.changeState(randomWeather);
     }
 
-    private void previousState()
+    public void previousState()
     {
+        if(this.previousWeather == null)
+           return;
 
+        this.bord.changeState(previousWeather);
+    }
+
+    public Weather getRandWeather(Weather currentWeather)
+    {
+        Weather[] weatherStates = new Weather[] { new NormalWeather(this.bord,this), new ColdWeather(this.bord, this), new WarmWeather(this.bord, this) };
+        Random random = new Random();
+        int randInt = random.nextInt(3) + 1;
+
+        return weatherStates[randInt];
     }
 }

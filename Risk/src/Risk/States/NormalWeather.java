@@ -4,8 +4,8 @@ import Risk.Bord;
 
 public class NormalWeather extends Weather
 {
-    public NormalWeather(Bord bord)
+    public NormalWeather(Bord bord, Weather previousWeather)
     {
-        super(bord);
+        super(bord, "NormalWeather", previousWeather);
     }
 }

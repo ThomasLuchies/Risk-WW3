@@ -5,8 +5,22 @@ import Risk.Bord;
 public class ColdWeather extends Weather
 {
 
-    public ColdWeather(Bord bord)
+    public ColdWeather(Bord bord, Weather previousWeather)
     {
-        super(bord);
+        super(bord, "ColdWeather", previousWeather);
     }
+
+    @Override
+    public void nextState()
+    {
+
+    }
+
+    @Override
+    public void previousState()
+    {
+
+    }
+
+
 }
