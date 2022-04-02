@@ -4,6 +4,7 @@ import Risk.States.ColdWeather;
 import Risk.States.NormalWeather;
 import Risk.States.WarmWeather;
 import Risk.States.Weather;
+import Risk.Troops.Troop;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,9 +45,29 @@ public class Bord implements BordInterface
         this.weather.previousState();
     }
 
-
     public void changeState(Weather weather)
     {
         this.weather = weather;
+    }
+
+    public boolean placeTroop(ArrayList<Troop> troops, Field field, Player player)
+    {
+        int troopsValue = 0;
+        for(Troop troop : troops)
+        {
+            troopsValue += troop.getValue();
+        }
+
+        if(field.getSoldiersAllowed() + (int)Math.floor(player.getKingdom().size() / 3) <= troopsValue)
+        {
+            for(Troop troop : troops)
+            {
+                field.placeTroop(troop);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

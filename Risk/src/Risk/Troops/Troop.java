@@ -8,4 +8,9 @@ public abstract class Troop
     {
         this.value = value;
     }
+
+    public int getValue()
+    {
+        return this.value;
+    }
 }

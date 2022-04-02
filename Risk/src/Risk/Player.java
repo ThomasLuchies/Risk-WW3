@@ -32,4 +32,24 @@ public class Player {
     {
 
     }
+
+    public Country getCountry()
+    {
+        return country;
+    }
+
+    public ArrayList<Field> getKingdom()
+    {
+        return kingdom;
+    }
+
+    public TroopCreator getTroopCreator()
+    {
+        return troopCreator;
+    }
+
+    public ArrayList<Troop> getTroops()
+    {
+        return troops;
+    }
 }
