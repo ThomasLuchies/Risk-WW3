@@ -9,7 +9,7 @@ public class Bord implements BordInterface
 {
     ArrayList<Player> players = new ArrayList<>();
     ArrayList<Field> fields = new ArrayList<>();
-    Weather weather = new NormalWeather();
+    Weather weather = new NormalWeather(this);
 
     public void changeState(Weather weather)
     {

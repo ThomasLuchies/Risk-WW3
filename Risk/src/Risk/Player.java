@@ -14,7 +14,7 @@ public class Player {
     public Player(Country country) {
         this.country = country;
         this.kingdom = new ArrayList<>();
-        this.troopCreator = new TroopCreator;
+        this.troopCreator = new TroopCreator();
         this.troops = new ArrayList<>();
     }
 
