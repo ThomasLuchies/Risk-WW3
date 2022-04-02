@@ -7,11 +7,16 @@ public abstract class Weather
 
     public Weather(Bord bord)
     {
-        this.bord = new Bord();
+        this.bord = bord;
     }
 
 
     private void nextState()
+    {
+
+    }
+
+    private void previousState()
     {
 
     }
