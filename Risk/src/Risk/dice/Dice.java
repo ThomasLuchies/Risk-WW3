@@ -1,9 +1,8 @@
 package Risk.dice;
 
 public abstract class Dice {
-    int min = 1;
     public int roll() {
-        int result = (int)(Math.random()*getMax()) + min;
+        int result = (int)(Math.random()*getMax()) + 1;
         System.out.println(result);
         return result;
     };
