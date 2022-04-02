@@ -28,11 +28,6 @@ public class Player {
         return false;
     }
 
-    public void placeTroop ()
-    {
-
-    }
-
     public Country getCountry()
     {
         return country;

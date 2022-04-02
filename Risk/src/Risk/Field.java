@@ -10,12 +10,14 @@ public class Field
     private Player owner;
     private ArrayList<Troop> troops;
     private int soldiersAllowed; // allowed soldier the user can place per turn on this field
+    private Coords coords;
 
-    public Field(Player owner)
+    public Field(Player owner, Coords coords)
     {
         this.owner = owner;
         this.troops = new ArrayList<>();
         this.soldiersAllowed = new Random().nextInt(3) + 1;
+        this.coords = coords;
     }
 
     public Player getOwner()
@@ -42,5 +44,20 @@ public class Field
     {
         this.owner = player;
         this.troops.clear();
+    }
+
+    public void setOwner(Player owner)
+    {
+        this.owner = owner;
+    }
+
+    public void setSoldiersAllowed(int soldiersAllowed)
+    {
+        this.soldiersAllowed = soldiersAllowed;
+    }
+
+    public void setCoords(Coords coords)
+    {
+        this.coords = coords;
     }
 }
