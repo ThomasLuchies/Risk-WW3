@@ -1,8 +1,11 @@
 package Risk.dice;
 
-public interface Dice {
-int min = 1;
-int max = 6;
-
-public int roll()      ;
+public abstract class Dice {
+    int min = 1;
+    public int roll() {
+        int result = (int)(Math.random()*getMax()) + min;
+        System.out.println(result);
+        return result;
+    };
+    public abstract int getMax();
 }
