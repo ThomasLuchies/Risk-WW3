@@ -15,4 +15,10 @@ public class Bord implements BordInterface
     {
         this.weather = weather;
     }
+
+    @Override
+    public void turn(boolean attack)
+    {
+
+    }
 }

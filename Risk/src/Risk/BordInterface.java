@@ -10,4 +10,6 @@ public interface BordInterface
     ArrayList<Player> players = new ArrayList<>();
     ArrayList<Field> fields = new ArrayList<>();
     Weather weather = new NormalWeather(new Bord());
+
+    void turn(boolean attack);
 }
