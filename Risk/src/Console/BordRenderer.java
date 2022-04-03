@@ -13,8 +13,9 @@ import java.util.Map;
 public class BordRenderer
 {
     private final int AMOUNT_OF_FIELDS_X = 7;
-    private final int AMOUNT_OF_FIELDS_Y = 5;
-    private final String columnRow =         "+-------+-------+-------+-------+-------+-------+-------+";
+    private final int AMOUNT_OF_FIELDS_Y = 6;
+    private final String topRow =    "     0       1       2       3       4       5       6   ";
+    private final String columnRow = " +-------+-------+-------+-------+-------+-------+-------+";
     private final String columnSide = "|";
     private final String columnInside = "       ";
     private final String ANSI_CYAN = "\u001B[106m";
@@ -25,6 +26,7 @@ public class BordRenderer
     public String renderBord(Bord bord)
     {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(topRow);
         HashMap<Coords, Field> playerFields = new HashMap<>();
 
         for(int i = 0; i < bord.getFields().size(); i++)
@@ -62,6 +64,14 @@ public class BordRenderer
         {
             for(int x = 0; x < AMOUNT_OF_FIELDS_X; x++)
             {
+                if(x == 0 && n == 0)
+                {
+                    stringBuilder.append(y);
+                }
+                else if(x == 0)
+                {
+                    stringBuilder.append(" ");
+                }
                 hasPlayer = false;
                 stringBuilder.append(columnSide);
                 for(Map.Entry<Coords, Field> field : fields.entrySet())

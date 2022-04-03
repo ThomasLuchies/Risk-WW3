@@ -35,12 +35,28 @@ public class Main
         bord.createFields();
         bord.divideFields();
 
+        System.out.println("test");
         boolean gameInProgess = true;
         while(gameInProgess)
         {
             turn(player1, bord);
+            if(checkForWin(bord))
+                break;
             turn(player2, bord);
+            if(checkForWin(bord))
+                break;
         }
+    }
+
+    public static boolean checkForWin(Bord bord)
+    {
+        Player player = null;
+        if((player = bord.checkForWin()) != null)
+        {
+            System.out.println("player " + player.getPlayerNumber() + " lost");
+        }
+
+        return false;
     }
 
     public static void turn(Player player, Bord bord)

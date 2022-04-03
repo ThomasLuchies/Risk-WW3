@@ -22,7 +22,7 @@ public class Bord implements BordInterface
     private Turn turn;
     private TroopCreator troopCreator;
     private final int AMOUNT_OF_FIELDS_X = 7;
-    private final int AMOUNT_OF_FIELDS_Y = 5;
+    private final int AMOUNT_OF_FIELDS_Y = 6;
 
     public Bord()
     {
@@ -57,13 +57,13 @@ public class Bord implements BordInterface
 
     public void divideFields()
     {
-        int fieldsPerPlayer = (((AMOUNT_OF_FIELDS_X * AMOUNT_OF_FIELDS_Y) / 2) / this.players.size()); // Calculates the fields every players gets at the start of the game
+        int fieldsPerPlayer = (AMOUNT_OF_FIELDS_X * AMOUNT_OF_FIELDS_Y) / this.players.size(); // Calculates the fields every players gets at the start of the game
         Field curField = null;
 
         // Give fields to all players
         for(int i = 0; i < this.players.size(); i++)
         {
-            int counter = 0;
+            int counter = 1;
             // Keep adding fields until the players has enough fields.
             while(counter <= fieldsPerPlayer)
             {
@@ -113,9 +113,6 @@ public class Bord implements BordInterface
 
         removeOneTroopFromField(fieldLost, playerLost);
 
-
-        playerLost.removeTroop();
-
         Player playerWon = fieldWon.getOwner();
 
         if(fieldLost.getTroops().size() == 0)
@@ -131,39 +128,31 @@ public class Bord implements BordInterface
     private void removeOneTroopFromField(Field field, Player player)
     {
         int infantryToAdd = 0;
-        ArrayList<Troop> tempTroopList = field.getTroops();
-        for(Troop troop : tempTroopList)
+        Troop troopToBeRemoved = field.getTroops().get(0);
+        field.removeTroop(troopToBeRemoved);
+
+        if(troopToBeRemoved instanceof Cavalry)
         {
-            if(troop instanceof Infantry)
-            {
-                tempTroopList.remove(troop);
-            }
-            else if(troop instanceof Cavalry)
-            {
-                tempTroopList.remove(troop);
-                infantryToAdd = 4;
-            }
-            else if(troop instanceof Artillery)
-            {
-                tempTroopList.remove(troop);
-                tempTroopList.add(this.troopCreator.createCavalry(player));
-                infantryToAdd = 4;
-            }
+            infantryToAdd = 4;
+        }
+        else if(troopToBeRemoved instanceof Artillery)
+        {
+            field.placeTroop(this.troopCreator.createCavalry(player));
+            infantryToAdd = 9;
         }
 
         for(int i = 0; i < infantryToAdd; i++)
         {
-            tempTroopList.add(this.troopCreator.createInfantry(player));
+            field.placeTroop(this.troopCreator.createInfantry(player));
         }
-
-        field.setTroops(tempTroopList);
     }
 
+    // returns player that lost
     public Player checkForWin()
     {
         for(Player player : this.players)
         {
-            if(player.getKingdom().size() == (AMOUNT_OF_FIELDS_Y * AMOUNT_OF_FIELDS_X))
+            if(player.getKingdom().size() == 0)
             {
                 return player;
             }
