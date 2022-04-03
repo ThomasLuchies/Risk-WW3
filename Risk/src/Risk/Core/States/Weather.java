@@ -25,7 +25,7 @@ public abstract class Weather
     {
         Weather randomWeather = getRandWeather(this);
 
-        if(this.name.contentEquals(this.getClass().getName()))
+        if(this.name.contentEquals(randomWeather.getName()))
             nextState();
 
         this.bord.changeState(randomWeather);
@@ -55,6 +55,11 @@ public abstract class Weather
         //int randInt = random.nextInt(3);
 
         return weatherStates[random.nextInt(3)];
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     /**

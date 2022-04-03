@@ -11,6 +11,7 @@ import Risk.Core.Troops.Infantry;
 import Risk.Core.Troops.Troop;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Bord implements BordInterface
@@ -72,6 +73,8 @@ public class Bord implements BordInterface
                 if(curField.getOwner() == null)
                 {
                     curField.setOwner(this.players.get(i));
+                    curField.placeTroop(this.troopCreator.createInfantry(this.players.get(i)));
+                    this.players.get(i).addField(curField);
                     counter++;
                 }
             }
@@ -121,35 +124,39 @@ public class Bord implements BordInterface
             fieldLost.placeTroop(this.troopCreator.createInfantry(playerWon));
             removeOneTroopFromField(fieldWon, playerWon);
         }
+
+        nextState();
     }
 
     private void removeOneTroopFromField(Field field, Player player)
     {
         int infantryToAdd = 0;
-
-        for(Troop troop : field.getTroops())
+        ArrayList<Troop> tempTroopList = field.getTroops();
+        for(Troop troop : tempTroopList)
         {
             if(troop instanceof Infantry)
             {
-                field.removeTroop(troop);
+                tempTroopList.remove(troop);
             }
             else if(troop instanceof Cavalry)
             {
-                field.removeTroop(troop);
+                tempTroopList.remove(troop);
                 infantryToAdd = 4;
             }
             else if(troop instanceof Artillery)
             {
-                field.removeTroop(troop);
-                field.placeTroop(this.troopCreator.createCavalry(player));
+                tempTroopList.remove(troop);
+                tempTroopList.add(this.troopCreator.createCavalry(player));
                 infantryToAdd = 4;
             }
         }
 
         for(int i = 0; i < infantryToAdd; i++)
         {
-            field.placeTroop(this.troopCreator.createInfantry(player));
+            tempTroopList.add(this.troopCreator.createInfantry(player));
         }
+
+        field.setTroops(tempTroopList);
     }
 
     public Player checkForWin()
@@ -188,17 +195,23 @@ public class Bord implements BordInterface
             troopsValue += troop.getValue();
         }
 
-        if(field.getSoldiersAllowed() + (int)Math.floor(player.getKingdom().size() / 3) <= troopsValue)
+        if(field.getSoldiersAllowed() + getMaxTroopsToPlace(player, field) >= troopsValue)
         {
             for(Troop troop : troops)
             {
                 field.placeTroop(troop);
             }
 
+            nextState();
             return true;
         }
 
         return false;
+    }
+
+    public int getMaxTroopsToPlace(Player player, Field field)
+    {
+        return (int)Math.floor(player.getKingdom().size() / 3) + field.getSoldiersAllowed();
     }
 
     public ArrayList<Player> getPlayers()
@@ -209,5 +222,15 @@ public class Bord implements BordInterface
     public ArrayList<Field> getFields()
     {
         return fields;
+    }
+
+    public TroopCreator getTroopCreator()
+    {
+        return troopCreator;
+    }
+
+    public Weather getWeather()
+    {
+        return weather;
     }
 }

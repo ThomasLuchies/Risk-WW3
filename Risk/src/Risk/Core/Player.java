@@ -13,12 +13,12 @@ public class Player
     private BordInterface bordInterface;
     private int playerNumber;
 
-    public Player(Country country, int playerNumber)
+    public Player(Country country, int playerNumber, Bord bord)
     {
         this.country = country;
         this.kingdom = new ArrayList<>();
         this.troops = 0;
-        this.bordInterface = new Bord();
+        this.bordInterface = bord;
         this.playerNumber = playerNumber;
     }
 
@@ -27,14 +27,14 @@ public class Player
         return country;
     }
 
-    public void attack(Field field, Player player)
+    public void attack(Field field)
     {
-        bordInterface.receiveAttack(getAttackValue(field), player, field);
+        bordInterface.receiveAttack(getAttackValue(field), this, field);
     }
 
-    public void defend(Field field, Player player)
+    public void defend(Field field)
     {
-        bordInterface.receiveDefend((getAttackValue(field) + 4), player, field);
+        bordInterface.receiveDefend((getAttackValue(field) + 4), this, field);
     }
 
     public int getAttackValue(Field field)
@@ -61,6 +61,11 @@ public class Player
     public ArrayList<Field> getKingdom()
     {
         return kingdom;
+    }
+
+    public void addField(Field field)
+    {
+        kingdom.add(field);
     }
 
     public int getTroops()

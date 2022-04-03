@@ -1,5 +1,6 @@
 package Console;
 
+import Risk.Core.Bord;
 import Risk.Core.Coords;
 import Risk.Core.Field;
 import Risk.Core.Player;
@@ -17,20 +18,20 @@ public class BordRenderer
     private final String columnSide = "|";
     private final String columnInside = "       ";
     private final String ANSI_CYAN = "\u001B[106m";
-    private final String ANSI_GREEN = "\u001B[42m";
+    private final String ANSI_GREEN = "\u001B[92m";
     private final String ANSI_PURPLE = "\u001B[45m";
     private final String ANSI_RESET = "\u001B[0m";
 
-    public String renderBord(ArrayList<Field> fields)
+    public String renderBord(Bord bord)
     {
         StringBuilder stringBuilder = new StringBuilder();
         HashMap<Coords, Field> playerFields = new HashMap<>();
 
-        for(int i = 0; i < fields.size(); i++)
+        for(int i = 0; i < bord.getFields().size(); i++)
         {
-            if(fields.get(i).getOwner() != null)
+            if(bord.getFields().get(i).getOwner() != null)
             {
-                playerFields.put(fields.get(i).getCoords(), fields.get(i));
+                playerFields.put(bord.getFields().get(i).getCoords(), bord.getFields().get(i));
             }
         }
 
@@ -41,6 +42,10 @@ public class BordRenderer
 
         stringBuilder.append("\n");
         stringBuilder.append(columnRow);
+        stringBuilder.append("\n");
+        stringBuilder.append(ANSI_GREEN);
+        stringBuilder.append(bord.getWeather().getName());
+        stringBuilder.append(ANSI_RESET);
         return stringBuilder.toString();
     }
 

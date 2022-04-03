@@ -30,6 +30,11 @@ public class Field
         return troops;
     }
 
+    public void setTroops(ArrayList<Troop> troops)
+    {
+        this.troops = troops;
+    }
+
     public int getSoldiersAllowed()
     {
         return soldiersAllowed;
