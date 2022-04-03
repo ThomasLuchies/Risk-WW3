@@ -1,5 +1,6 @@
 package Risk.Core.TroopFactory;
 
+import Risk.Core.Player;
 import Risk.Core.Troops.Artillery;
 import Risk.Core.Troops.Cavalry;
 import Risk.Core.Troops.Infantry;
@@ -17,18 +18,18 @@ public class TroopCreator
         this.cavalryFactory = new CavalryFactory();
     }
 
-    public Artillery createArtillery()
+    public Artillery createArtillery(Player player)
     {
-        return this.artilleryFactory.createArtillery();
+        return this.artilleryFactory.createArtillery(player);
     }
 
-    public Infantry createInfantry()
+    public Infantry createInfantry(Player player)
     {
-        return this.infantryFactory.createInfantry();
+        return this.infantryFactory.createInfantry(player);
     }
 
-    public Cavalry createCavalry()
+    public Cavalry createCavalry(Player player)
     {
-        return this.cavalryFactory.createCavalry();
+        return this.cavalryFactory.createCavalry(player);
     }
 }

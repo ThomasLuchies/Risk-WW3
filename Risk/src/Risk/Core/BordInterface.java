@@ -14,5 +14,7 @@ public interface BordInterface
     void receiveAttack(int value, Player player, Field field);
     void receiveDefend(int value, Player player, Field field);
 
-    public void changeState(Weather weather);
+    void receiveWinner(Field lostField, Field fieldWon);
+
+    void changeState(Weather weather);
 }

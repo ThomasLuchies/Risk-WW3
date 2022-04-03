@@ -40,6 +40,11 @@ public class Field
         this.troops.add(troop);
     }
 
+    public void removeTroop(Troop troop)
+    {
+        this.troops.remove(troop);
+    }
+
     public void Invaded(Player player)
     {
         this.owner = player;

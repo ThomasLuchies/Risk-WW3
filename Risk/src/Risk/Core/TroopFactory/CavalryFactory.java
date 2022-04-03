@@ -1,11 +1,12 @@
 package Risk.Core.TroopFactory;
 
+import Risk.Core.Player;
 import Risk.Core.Troops.Cavalry;
 
 public class CavalryFactory
 {
-    public Cavalry createCavalry()
+    public Cavalry createCavalry(Player player)
     {
-        return new Cavalry();
+        return new Cavalry(player);
     }
 }

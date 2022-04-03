@@ -4,6 +4,10 @@ import Risk.Core.States.ColdWeather;
 import Risk.Core.States.NormalWeather;
 import Risk.Core.States.WarmWeather;
 import Risk.Core.States.Weather;
+import Risk.Core.TroopFactory.TroopCreator;
+import Risk.Core.Troops.Artillery;
+import Risk.Core.Troops.Cavalry;
+import Risk.Core.Troops.Infantry;
 import Risk.Core.Troops.Troop;
 
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ public class Bord implements BordInterface
     private ArrayList<Field> fields;
     private Weather weather;
     private Turn turn;
+    private TroopCreator troopCreator;
     private final int AMOUNT_OF_FIELDS_X = 7;
     private final int AMOUNT_OF_FIELDS_Y = 5;
 
@@ -23,6 +28,7 @@ public class Bord implements BordInterface
         this.players = new ArrayList<>();
         this.fields = new ArrayList<>();
         this.weather = randWeather();
+        this.troopCreator = new TroopCreator();
     }
 
     public Weather randWeather()
@@ -32,9 +38,9 @@ public class Bord implements BordInterface
         return randInt == 1 ? new NormalWeather(this, null) : randInt == 2 ? new ColdWeather(this, null) : new WarmWeather(this, null);
     }
 
-    public void addPlayer()
+    public void addPlayer(Player player)
     {
-
+        this.players.add(player);
     }
 
     public void createFields()
@@ -76,19 +82,75 @@ public class Bord implements BordInterface
     @Override
     public void receiveAttack(int value, Player player, Field field)
     {
-        this.turn = new Turn(this.weather);
+        this.turn = new Turn(this, this.weather);
         this.turn.setAttackValue(value);
-        this.turn.setAttacker(player);
+        this.turn.setAttackingTroops(field.getTroops());
         this.turn.setAttackingField(field);
+        this.turn.setAttackingCountry(player.getCountry());
     }
 
     @Override
     public void receiveDefend(int value, Player player, Field field)
     {
         this.turn.setDefendValue(value);
-        this.turn.setDefender(player);
+        this.turn.setDefendingTroops(field.getTroops());
         this.turn.setDefenderField(field);
+        this.turn.setDefendingCountry(player.getCountry());
+
         this.turn.turn();
+    }
+
+    @Override
+    public void receiveWinner(Field fieldLost, Field fieldWon)
+    {
+        boolean troopRemoved = false;
+        Player playerLost = fieldLost.getOwner();
+
+        if(playerLost == null)
+            troopRemoved = true;
+
+        removeOneTroopFromField(fieldLost, playerLost);
+
+
+        playerLost.removeTroop();
+
+        Player playerWon = fieldWon.getOwner();
+
+        if(fieldLost.getTroops().size() == 0)
+        {
+            fieldLost.setOwner(playerWon);
+            fieldLost.placeTroop(this.troopCreator.createInfantry(playerWon));
+            removeOneTroopFromField(fieldWon, playerWon);
+        }
+    }
+
+    private void removeOneTroopFromField(Field field, Player player)
+    {
+        int infantryToAdd = 0;
+
+        for(Troop troop : field.getTroops())
+        {
+            if(troop instanceof Infantry)
+            {
+                field.removeTroop(troop);
+            }
+            else if(troop instanceof Cavalry)
+            {
+                field.removeTroop(troop);
+                infantryToAdd = 4;
+            }
+            else if(troop instanceof Artillery)
+            {
+                field.removeTroop(troop);
+                field.placeTroop(this.troopCreator.createCavalry(player));
+                infantryToAdd = 4;
+            }
+        }
+
+        for(int i = 0; i < infantryToAdd; i++)
+        {
+            field.placeTroop(this.troopCreator.createInfantry(player));
+        }
     }
 
     public Player checkForWin()
