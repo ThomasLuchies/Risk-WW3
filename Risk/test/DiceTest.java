@@ -8,6 +8,9 @@ class DiceTest {
     DiceDisadvantage DiceTest4 = new DiceDisadvantage();
     DiceNormal DiceTest5 = new DiceNormal();
     DiceAdvantage DiceTest6 = new DiceAdvantage();
+    /**
+     * checks if all dice values are within the range given by the fuction
+     */
 
     @org.junit.jupiter.api.Test
     void getResult4(){
