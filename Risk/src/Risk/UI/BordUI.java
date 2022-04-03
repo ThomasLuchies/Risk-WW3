@@ -29,7 +29,7 @@ public class BordUI implements ActionListener {
         this.panel.setLayout(new GridLayout(0,3));
         this.frame.add(this.panel);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(666, 420);
+        this.frame.setPreferredSize(new Dimension(900,900));
         this.frame.setTitle("Risk WO III");
         this.frame.pack();
         this.frame.setVisible(true);

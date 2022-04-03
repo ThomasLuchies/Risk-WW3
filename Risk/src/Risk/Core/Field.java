@@ -61,6 +61,11 @@ public class Field
         this.soldiersAllowed = soldiersAllowed;
     }
 
+    public Coords getCoords()
+    {
+        return coords;
+    }
+
     public void setCoords(Coords coords)
     {
         this.coords = coords;

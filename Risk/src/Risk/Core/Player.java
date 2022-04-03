@@ -11,13 +11,15 @@ public class Player
     private ArrayList<Field> kingdom;
     private int troops;
     private BordInterface bordInterface;
+    private int playerNumber;
 
-    public Player(Country country)
+    public Player(Country country, int playerNumber)
     {
         this.country = country;
         this.kingdom = new ArrayList<>();
         this.troops = 0;
         this.bordInterface = new Bord();
+        this.playerNumber = playerNumber;
     }
 
     public Country getCountry()
@@ -64,5 +66,15 @@ public class Player
     public int getTroops()
     {
         return troops;
+    }
+
+    public int getPlayerNumber()
+    {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(int playerNumber)
+    {
+        this.playerNumber = playerNumber;
     }
 }

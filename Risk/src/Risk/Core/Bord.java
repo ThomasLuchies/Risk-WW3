@@ -23,7 +23,7 @@ public class Bord implements BordInterface
     private final int AMOUNT_OF_FIELDS_X = 7;
     private final int AMOUNT_OF_FIELDS_Y = 5;
 
-    public void changeState()
+    public Bord()
     {
         this.players = new ArrayList<>();
         this.fields = new ArrayList<>();
@@ -45,9 +45,9 @@ public class Bord implements BordInterface
 
     public void createFields()
     {
-        for(int x = 0; x < AMOUNT_OF_FIELDS_Y; x++)
+        for(int x = 0; x < AMOUNT_OF_FIELDS_X; x++)
         {
-            for(int y = 0; y < AMOUNT_OF_FIELDS_X; y++)
+            for(int y = 0; y < AMOUNT_OF_FIELDS_Y; y++)
             {
                 fields.add(new Field(null, new Coords(x, y)));
             }
@@ -64,11 +64,10 @@ public class Bord implements BordInterface
         {
             int counter = 0;
             // Keep adding fields until the players has enough fields.
-            while(counter >= fieldsPerPlayer)
+            while(counter <= fieldsPerPlayer)
             {
                 // get a random field
                 curField = this.fields.get(new Random().nextInt(this.fields.size()));
-
                 // If the field does not have an owner set it the owner to the current player.
                 if(curField.getOwner() == null)
                 {
@@ -200,5 +199,15 @@ public class Bord implements BordInterface
         }
 
         return false;
+    }
+
+    public ArrayList<Player> getPlayers()
+    {
+        return players;
+    }
+
+    public ArrayList<Field> getFields()
+    {
+        return fields;
     }
 }
