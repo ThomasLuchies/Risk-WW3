@@ -1,4 +1,4 @@
-package Risk.Troops;
+package Risk.Core.Troops;
 
 public class Cavalry extends Troop {
     public Cavalry() {

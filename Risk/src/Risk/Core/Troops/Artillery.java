@@ -1,4 +1,4 @@
-package Risk.Troops;
+package Risk.Core.Troops;
 
 public class Artillery extends Troop {
     public Artillery() {

@@ -1,4 +1,4 @@
-package Risk.dice;
+package Risk.Core.dice;
 
 public abstract class Dice {
     public int roll() {

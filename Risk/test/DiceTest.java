@@ -1,6 +1,6 @@
-import Risk.dice.DiceDisadvantage;
-import Risk.dice.DiceNormal;
-import Risk.dice.DiceAdvantage;
+import Risk.Core.dice.DiceDisadvantage;
+import Risk.Core.dice.DiceNormal;
+import Risk.Core.dice.DiceAdvantage;
 
 import static org.junit.jupiter.api.Assertions.*;
 

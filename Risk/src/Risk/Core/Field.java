@@ -1,6 +1,6 @@
-package Risk;
+package Risk.Core;
 
-import Risk.Troops.Troop;
+import Risk.Core.Troops.Troop;
 
 import java.util.ArrayList;
 import java.util.Random;

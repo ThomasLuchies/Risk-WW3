@@ -1,4 +1,4 @@
-package Risk.Troops;
+package Risk.Core.Troops;
 
 public abstract class Troop
 {

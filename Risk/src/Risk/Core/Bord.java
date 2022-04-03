@@ -1,10 +1,10 @@
-package Risk;
+package Risk.Core;
 
-import Risk.States.ColdWeather;
-import Risk.States.NormalWeather;
-import Risk.States.WarmWeather;
-import Risk.States.Weather;
-import Risk.Troops.Troop;
+import Risk.Core.States.ColdWeather;
+import Risk.Core.States.NormalWeather;
+import Risk.Core.States.WarmWeather;
+import Risk.Core.States.Weather;
+import Risk.Core.Troops.Troop;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,6 +14,7 @@ public class Bord implements BordInterface
     private ArrayList<Player> players;
     private ArrayList<Field> fields;
     private Weather weather;
+    private Turn turn;
     private final int AMOUNT_OF_FIELDS_X = 7;
     private final int AMOUNT_OF_FIELDS_Y = 5;
 
@@ -73,9 +74,21 @@ public class Bord implements BordInterface
     }
 
     @Override
-    public void turn(boolean attack)
+    public void receiveAttack(int value, Player player, Field field)
     {
+        this.turn = new Turn(this.weather);
+        this.turn.setAttackValue(value);
+        this.turn.setAttacker(player);
+        this.turn.setAttackingField(field);
+    }
 
+    @Override
+    public void receiveDefend(int value, Player player, Field field)
+    {
+        this.turn.setDefendValue(value);
+        this.turn.setDefender(player);
+        this.turn.setDefenderField(field);
+        this.turn.turn();
     }
 
     public Player checkForWin()

@@ -1,6 +1,6 @@
-package Risk.TroopFactory;
+package Risk.Core.TroopFactory;
 
-import Risk.Troops.Infantry;
+import Risk.Core.Troops.Infantry;
 
 public class InfantryFactory
 {

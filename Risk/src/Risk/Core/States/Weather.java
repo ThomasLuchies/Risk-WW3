@@ -1,7 +1,8 @@
-package Risk.States;
-import Risk.Bord;
+package Risk.Core.States;
+import Risk.Core.Bord;
+import Risk.Core.Country;
+import Risk.Core.dice.Dice;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Weather
@@ -43,4 +44,6 @@ public abstract class Weather
 
         return weatherStates[randInt];
     }
+
+    public abstract Dice getCorrectDice(Country country);
 }

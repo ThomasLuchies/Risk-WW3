@@ -1,4 +1,4 @@
-package Risk.dice;
+package Risk.Core.dice;
 
 public class DiceAdvantage extends Dice {
     @Override

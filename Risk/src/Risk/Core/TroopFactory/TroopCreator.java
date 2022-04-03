@@ -1,8 +1,8 @@
-package Risk.TroopFactory;
+package Risk.Core.TroopFactory;
 
-import Risk.Troops.Artillery;
-import Risk.Troops.Cavalry;
-import Risk.Troops.Infantry;
+import Risk.Core.Troops.Artillery;
+import Risk.Core.Troops.Cavalry;
+import Risk.Core.Troops.Infantry;
 
 public class TroopCreator
 {

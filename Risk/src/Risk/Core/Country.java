@@ -1,4 +1,4 @@
-package Risk;
+package Risk.Core;
 
 public enum Country
 {
