@@ -59,3 +59,5 @@ Als je aan wilt vallen moet je beginnen met het invoeren van de coördinaten van
 
 ![Aanvallen coördinaten](img/Aanvallen1.png)
 
+Daarna valt hij aan en geeft hij of je hebt gewonnen of niet
+
