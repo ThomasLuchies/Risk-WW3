@@ -62,222 +62,246 @@ public class Main
     public static void turn(Player player, Bord bord)
     {
         Scanner scanner = new Scanner(System.in);
-        cls();
-        bordRenderer = new BordRenderer();
-        System.out.println(bordRenderer.renderBord(bord));
-
-        //player 1 turn
-        System.out.println("Player " + player.getPlayerNumber() + " turn:");
-        System.out.println("what do you wan't to do:");
-        System.out.println("1: Place troops");
-        System.out.println("2: Invade");
-        System.out.println("3: End Turn");
-
-        String playerChoice = scanner.nextLine();
-
-        switch(Integer.parseInt(playerChoice))
+        turnLoop: while(true)
         {
-            case 1:
-                Field fieldToPlace = null;
-                cls();
-                System.out.println(bordRenderer.renderBord(bord));
-                while(true)
-                {
-                    System.out.println("On which field do you wan't to place the troop\nPlease enter the coordinates in the following way: X-Y");
-                    playerChoice = scanner.nextLine();
-                    if(playerChoice.contains("-"))
-                    {
-                        String[] coordinates = playerChoice.split("-");
-                        for(Field field : bord.getFields())
-                        {
-                            if(field.getCoords().getX() == Integer.parseInt(coordinates[0]) && field.getCoords().getY() == Integer.parseInt(coordinates[1]))
-                            {
-                                if(field.getOwner() != null)
-                                {
-                                    if(field.getOwner() == player)
-                                    {
-                                        fieldToPlace = field;
-                                    }
-                                }
-                            }
-                        }
+            cls();
+            bordRenderer = new BordRenderer();
+            System.out.println(bordRenderer.renderBord(bord));
 
-                        if(fieldToPlace == null)
-                        {
-                            cls();
-                            System.out.println(bordRenderer.renderBord(bord));
-                            System.out.println("This field is not owned by you");
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        cls();
-                        System.out.println(bordRenderer.renderBord(bord));
-                        System.out.println("Invalid input");
-                    }
-                }
+            //player 1 turn
+            System.out.println("Player " + player.getPlayerNumber() + " turn:");
+            System.out.println("what do you wan't to do:");
+            System.out.println("1: Place troops");
+            System.out.println("2: Invade");
+            System.out.println("3: End Turn");
 
-                cls();
-                System.out.println(bordRenderer.renderBord(bord));
-                ArrayList<Troop> troopsToPlace = new ArrayList<>();
-                int pointsSpend = 0;
-                troopPlacingLoop: while(true)
-                {
-                    int maxPointsToSpend = bord.getMaxTroopsToPlace(player, fieldToPlace);
+            String playerChoice = scanner.nextLine();
+
+            switch(Integer.parseInt(playerChoice))
+            {
+                case 1:
+                    Field fieldToPlace = null;
+                    cls();
+                    System.out.println(bordRenderer.renderBord(bord));
                     while(true)
                     {
-                        System.out.println(pointsSpend);
-                        System.out.println("Which troops do you wan't to place");
-                        System.out.println("You can place troops up to " + (maxPointsToSpend - pointsSpend) + " points");
-                        System.out.println("1: Infantry  -- 1 point");
-                        System.out.println("2: Cavalry   -- 5 points");
-                        System.out.println("3: Artillery -- 10 points");
+                        System.out.println("On which field do you wan't to place the troop\nPlease enter the coordinates in the following way: X-Y");
                         playerChoice = scanner.nextLine();
+                        if(playerChoice.contains("-"))
+                        {
+                            String[] coordinates = playerChoice.split("-");
+                            for(Field field : bord.getFields())
+                            {
+                                if(field.getCoords().getX() == Integer.parseInt(coordinates[0]) && field.getCoords().getY() == Integer.parseInt(coordinates[1]))
+                                {
+                                    if(field.getOwner() != null)
+                                    {
+                                        if(field.getOwner() == player)
+                                        {
+                                            fieldToPlace = field;
+                                        }
+                                    }
+                                }
+                            }
 
-                        if(Integer.parseInt(playerChoice) == 1)
-                        {
-                            troopsToPlace.add(bord.getTroopCreator().createInfantry(player));
-                            pointsSpend += 1;
-                        }
-                        else if(Integer.parseInt(playerChoice)  == 2)
-                        {
-                            troopsToPlace.add(bord.getTroopCreator().createCavalry(player));
-                            pointsSpend += 5;
-                        }
-                        else if(Integer.parseInt(playerChoice)  == 3)
-                        {
-                            pointsSpend += 10;
-                            troopsToPlace.add(bord.getTroopCreator().createArtillery(player));
+                            if(fieldToPlace == null)
+                            {
+                                cls();
+                                System.out.println(bordRenderer.renderBord(bord));
+                                System.out.println("This field is not owned by you");
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                         else
                         {
+                            cls();
+                            System.out.println(bordRenderer.renderBord(bord));
                             System.out.println("Invalid input");
+                        }
+                    }
+
+                    cls();
+                    System.out.println(bordRenderer.renderBord(bord));
+                    ArrayList<Troop> troopsToPlace = new ArrayList<>();
+                    int pointsSpend = 0;
+                    troopPlacingLoop: while(true)
+                    {
+                        int maxPointsToSpend = bord.getMaxTroopsToPlace(player, fieldToPlace);
+                        while(true)
+                        {
+                            System.out.println(pointsSpend);
+                            System.out.println("Which troops do you wan't to place");
+                            System.out.println("You can place troops up to " + (maxPointsToSpend - pointsSpend) + " points");
+                            System.out.println("1: Infantry  -- 1 point");
+                            System.out.println("2: Cavalry   -- 5 points");
+                            System.out.println("3: Artillery -- 10 points");
+                            playerChoice = scanner.nextLine();
+
+                            if(Integer.parseInt(playerChoice) == 1)
+                            {
+                                troopsToPlace.add(bord.getTroopCreator().createInfantry(player));
+                                pointsSpend += 1;
+                            }
+                            else if(Integer.parseInt(playerChoice)  == 2)
+                            {
+                                troopsToPlace.add(bord.getTroopCreator().createCavalry(player));
+                                pointsSpend += 5;
+                            }
+                            else if(Integer.parseInt(playerChoice)  == 3)
+                            {
+                                pointsSpend += 10;
+                                troopsToPlace.add(bord.getTroopCreator().createArtillery(player));
+                            }
+                            else
+                            {
+                                System.out.println("Invalid input");
+                                cls();
+                                System.out.println(bordRenderer.renderBord(bord));
+                            }
+
+                            if(maxPointsToSpend == pointsSpend)
+                            {
+                                break troopPlacingLoop;
+                            }
+
                             cls();
                             System.out.println(bordRenderer.renderBord(bord));
-                        }
+                            System.out.println("Do you wan't to place another troop?");
+                            System.out.println("1: Yes");
+                            System.out.println("2: No");
+                            playerChoice = scanner.nextLine();
 
-                        if(maxPointsToSpend == pointsSpend)
-                        {
-                            break troopPlacingLoop;
-                        }
+                            cls();
+                            System.out.println(bordRenderer.renderBord(bord));
+                            if(Integer.parseInt(playerChoice) == 2)
+                            {
+                                break troopPlacingLoop;
+                            }
 
-                        cls();
-                        System.out.println(bordRenderer.renderBord(bord));
-                        System.out.println("Do you wan't to place another troop?");
-                        System.out.println("1: Yes");
-                        System.out.println("2: No");
+                            break;
+
+                        }
+                    }
+
+                    bord.placeTroop(troopsToPlace, fieldToPlace, player);
+                    cls();
+                    System.out.println(bordRenderer.renderBord(bord));
+                    break;
+                case 2:
+                    Field attackingField = null;
+                    Field defendingField = null;
+                    cls();
+                    System.out.println(bordRenderer.renderBord(bord));
+                    while(true)
+                    {
+                        System.out.println("Which field do you want to use to attack \nPlease enter the coordinates in the following way: X-Y");
                         playerChoice = scanner.nextLine();
-
-                        cls();
-                        System.out.println(bordRenderer.renderBord(bord));
-                        if(Integer.parseInt(playerChoice) == 2)
+                        if (playerChoice.contains("-"))
                         {
-                            break troopPlacingLoop;
-                        }
-
-                        break;
-
-                    }
-                }
-
-                bord.placeTroop(troopsToPlace, fieldToPlace, player);
-                cls();
-                System.out.println(bordRenderer.renderBord(bord));
-                break;
-            case 2:
-                Field attackingField = null;
-                Field defendingField = null;
-                cls();
-                System.out.println(bordRenderer.renderBord(bord));
-                while(true)
-                {
-                    System.out.println("Which field do you want to use to attack \nPlease enter the coordinates in the following way: X-Y");
-                    playerChoice = scanner.nextLine();
-                    if (playerChoice.contains("-"))
-                    {
-                        String[] coordinates = playerChoice.split("-");
-                        for (Field field : bord.getFields())
-                        {
-                            if (field.getCoords().getX() == Integer.parseInt(coordinates[0]) && field.getCoords().getY() == Integer.parseInt(coordinates[1]))
+                            String[] coordinates = playerChoice.split("-");
+                            for (Field field : bord.getFields())
                             {
-                                if (field.getOwner() != null)
+                                if (field.getCoords().getX() == Integer.parseInt(coordinates[0]) && field.getCoords().getY() == Integer.parseInt(coordinates[1]))
                                 {
-                                    if (field.getOwner() == player)
+                                    if (field.getOwner() != null)
                                     {
-                                        attackingField = field;
+                                        if (field.getOwner() == player)
+                                        {
+                                            if(bord.canAttack(field))
+                                            {
+                                                attackingField = field;
+                                            }
+                                            else
+                                            {
+                                                cls();
+                                                System.out.println(bordRenderer.renderBord(bord));
+                                                System.out.println("An attacking field needs to have at least 2 troops available");
+                                                System.out.println("Press any key to continue");
+                                                scanner.nextLine();
+                                                continue turnLoop;
+                                            }
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        if (attackingField == null)
+                            if (attackingField == null)
+                            {
+                                cls();
+                                System.out.println(bordRenderer.renderBord(bord));
+                                System.out.println("This field is not owned by you");
+                            } else
+                            {
+                                break;
+                            }
+                        } else
                         {
                             cls();
                             System.out.println(bordRenderer.renderBord(bord));
-                            System.out.println("This field is not owned by you");
-                        } else
-                        {
-                            break;
+                            System.out.println("Invalid input");
                         }
-                    } else
-                    {
-                        cls();
-                        System.out.println(bordRenderer.renderBord(bord));
-                        System.out.println("Invalid input");
                     }
-                }
 
-                attackingField.getOwner().attack(attackingField);
-                cls();
-                System.out.println(bordRenderer.renderBord(bord));
-                System.out.println("Invalid input");
-                while(true)
-                {
-                    System.out.println("Which field do you want to attack\nPlease enter the coordinates in the following way: X-Y");
-                    playerChoice = scanner.nextLine();
-                    if (playerChoice.contains("-"))
+                    attackingField.getOwner().attack(attackingField);
+                    cls();
+                    System.out.println(bordRenderer.renderBord(bord));
+                    System.out.println("Invalid input");
+                    while(true)
                     {
-                        String[] coordinates = playerChoice.split("-");
-                        for (Field field : bord.getFields())
+                        System.out.println("Which field do you want to attack\nPlease enter the coordinates in the following way: X-Y");
+                        playerChoice = scanner.nextLine();
+                        if (playerChoice.contains("-"))
                         {
-                            if (field.getCoords().getX() == Integer.parseInt(coordinates[0]) && field.getCoords().getY() == Integer.parseInt(coordinates[1]))
+                            String[] coordinates = playerChoice.split("-");
+                            for (Field field : bord.getFields())
                             {
-                                if (field.getOwner() != null)
+                                if (field.getCoords().getX() == Integer.parseInt(coordinates[0]) && field.getCoords().getY() == Integer.parseInt(coordinates[1]))
                                 {
-                                    if (field.getOwner() != player)
+                                    if (field.getOwner() != null)
                                     {
-                                        defendingField = field;
+                                        if (field.getOwner() != player)
+                                        {
+                                            defendingField = field;
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        if (attackingField == null)
+                            if (attackingField == null)
+                            {
+                                cls();
+                                System.out.println(bordRenderer.renderBord(bord));
+                                System.out.println("This field is owned by you and cannot be attacked please try again");
+                            } else
+                            {
+                                break;
+                            }
+                        } else
                         {
                             cls();
                             System.out.println(bordRenderer.renderBord(bord));
-                            System.out.println("This field is owned by you and cannot be attacked please try again");
-                        } else
-                        {
-                            break;
+                            System.out.println("Invalid input");
                         }
-                    } else
-                    {
-                        cls();
-                        System.out.println(bordRenderer.renderBord(bord));
-                        System.out.println("Invalid input");
                     }
-                }
-                defendingField.getOwner().defend(defendingField);
+                    defendingField.getOwner().defend(defendingField);
 
-                break;
-            case 3:
-                bord.nextState();
-                break;
+                    break;
+                case 3:
+                    bord.nextState();
+                    break;
+                default:
+                    cls();
+                    System.out.println(bordRenderer.renderBord(bord));
+                    System.out.println("Invalid input please enter between a number between 1 and 3");
+                    System.out.println("Press any key to continue");
+                    scanner.nextLine();
+                    continue turnLoop;
+
+            }
+            break;
         }
     }
 

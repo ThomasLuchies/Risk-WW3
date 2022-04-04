@@ -203,6 +203,16 @@ public class Bord implements BordInterface
         return (int)Math.floor(player.getKingdom().size() / 3) + field.getSoldiersAllowed();
     }
 
+    public boolean canAttack(Field field)
+    {
+        if(field.getTroops().size() > 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public ArrayList<Player> getPlayers()
     {
         return players;
