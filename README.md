@@ -33,10 +33,29 @@ Optie 2: het aanvallen van een stuk land.
 Optie 3: je beurt beëindigen
 
 ###Troepen plaatsen
-Wanneer je troepen wilt plaatsen heb je 3 opties om te kiezen:
+Wanneer je troepen wilt plaatsen moet je eerst aangeven 
+
+![place troops](img/PlaceTroops1.png)
+
+De 3 opties waar je uit kan kiezen:
 
 Optie 1: Je kan infantry plaatsen (waarde van 1 per troep)
 
 Optie 2: Je kan cavalry plaatsen (waarde van 5 per troep)
 
 Optie 3: Je kan artillery plaatsen (waarde van 10 per troep)
+
+![place troops](img/PlaceTroops.png)
+
+Als je niet je troepen in 1 keer plaatst krijg je de volgende melding.
+
+![place troops](img/PlaceEnoughTroops.png)
+
+Als je geen troepen meer wilt plaatsen kan je aanvallen, als je nog wel troepen wilt plaatsen ga je door met troepen plaatsen
+
+##Aanvallen
+
+Als je aan wilt vallen moet je beginnen met het invoeren van de coördinaten van het veld dat je aan wilt vallen.
+
+![Aanvallen coördinaten](img/Aanvallen1.png)
+
